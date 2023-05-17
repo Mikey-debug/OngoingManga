@@ -1,6 +1,6 @@
 from TelegramBot import bot
 from TelegramBot.logging import LOGGER
-from pyrogram import Client
+from pyrogram import Client,filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 group = -1001728546352
 channel = -1001962326301
