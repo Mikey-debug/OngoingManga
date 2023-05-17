@@ -4,19 +4,22 @@ from pyrogram import Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 group = -1001728546352
 channel = -1001962326301
-# Create the callback game button
-callback_game_button = InlineKeyboardButton(
-    "Play Game",
-    callback_game="your_game_callback_data"
-)
 
-# Create an inline keyboard markup with the callback game button
-keyboard = InlineKeyboardMarkup([[callback_game_button]])
-post = bot.send_message(
-        chat_id=channel,
-        text="Hello! Please click the button below:",
-        reply_markup=keyboard
+@bot.on_message(filters.command("test"))
+def test(Client, message):
+    # Create the callback game button
+    callback_game_button = InlineKeyboardButton(
+        "Play Game",
+        callback_game="your_game_callback_data"
     )
+
+    # Create an inline keyboard markup with the callback game button
+    keyboard = InlineKeyboardMarkup([[callback_game_button]])
+    post = bot.send_message(
+            chat_id=channel,
+            text="Hello! Please click the button below:",
+            reply_markup=keyboard
+        )
 
 def handle_callback_game(client, callback_query):
     # Get the callback game data
