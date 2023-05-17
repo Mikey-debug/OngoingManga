@@ -20,7 +20,7 @@ def test(Client, message):
             text="Hello! Please click the button below:",
             reply_markup=keyboard
         )
-
+@bot.on_callback_query()
 def handle_callback_game(client, callback_query):
     # Get the callback game data
     callback_game_data = callback_query.game_short_name
@@ -35,8 +35,6 @@ def handle_callback_game(client, callback_query):
     # Answer the callback query to close the game
     callback_query.answer()
 
-# Register the callback function with the CallbackQueryHandler
-bot.add_handler(CallbackQueryHandler(handle_callback_game))
 LOGGER(__name__).info("client successfully initiated....")
 if __name__ == "__main__":
     bot.run()
