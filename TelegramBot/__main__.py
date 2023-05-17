@@ -1,12 +1,15 @@
 from TelegramBot import bot
 from TelegramBot.logging import LOGGER
-from pyrogram import Client,filters
+from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 group = -1001728546352
 channel = -1001962326301
+keyboard = None  # Declare the keyboard variable outside the function
 
 @bot.on_message(filters.command("test"))
-def test(Client, message):
+def test(client, message):
+    global keyboard  # Use the global keyword to access the keyboard variable
     # Create the callback game button
     callback_game_button = InlineKeyboardButton(
         "Play Game",
@@ -16,12 +19,14 @@ def test(Client, message):
     # Create an inline keyboard markup with the callback game button
     keyboard = InlineKeyboardMarkup([[callback_game_button]])
     post = bot.send_message(
-            chat_id=channel,
-            text="Hello! Please click the button below:",
-            reply_markup=keyboard
-        )
+        chat_id=channel,
+        text="Hello! Please click the button below:",
+        reply_markup=keyboard
+    )
+
 @bot.on_callback_query()
 def handle_callback_game(client, callback_query):
+    global keyboard  # Use the global keyword to access the keyboard variable
     # Get the callback game data
     callback_game_data = callback_query.game_short_name
     post = bot.send_message(
